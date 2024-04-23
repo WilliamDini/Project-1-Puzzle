@@ -10,6 +10,10 @@ class Problem {
         int goalState[1];
 
         Problem();
+        void goLeft();
+        void goRight();
+        void goUp();
+        void goDown();
 
 };
 
