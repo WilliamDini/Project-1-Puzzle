@@ -2,13 +2,14 @@
 #define NODE_H
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 struct node{
-    int uniformCost = 0;
+    vector<vector<int>> state;
+    int cost = 0;
     int heuristicCost = 0;
-
     node *p = NULL;
 };
 
