@@ -1,19 +1,26 @@
 #ifndef PROBLEM_HPP
 #define PROBLEM_HPP
 #include <iostream>
+#include "../headers/node.hpp"
 using namespace std;
 
 class Problem {
     protected:
         int puzzleSize = 8;
-        int startState[1];
-        int goalState[1];
+        vector<node> startState;
+        vector<node> goalState;
+        // int frontier[1];
 
+    public:
         Problem();
-        void goLeft();
-        void goRight();
-        void goUp();
-        void goDown();
+        Problem(vector<node> startState);
+        int getPuzzleSize();
+        // void printStartState(); // for testing purposes
+        // void printGoalState();   // for testing purposes
+        void UniformCostSearch();
+        void MisplacedTileSearch();
+        void EuclideanDistanceSearch();
+        bool GoalStateTest();
 
 };
 
