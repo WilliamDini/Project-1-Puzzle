@@ -13,10 +13,12 @@ class Problem {
 
     public:
         Problem();
-        Problem(vector<node> startState);
+        void userProblem();
         int getPuzzleSize();
-        // void printStartState(); // for testing purposes
-        // void printGoalState();   // for testing purposes
+        vector<node> getStartState();
+        vector<node> getGoalState();
+        void printStartState(); // for testing purposes
+        void printGoalState();   // for testing purposes
         void UniformCostSearch();
         void MisplacedTileSearch();
         void EuclideanDistanceSearch();
