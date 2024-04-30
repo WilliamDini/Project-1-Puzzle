@@ -1,7 +1,7 @@
 #include <iostream>
-#include "problem.hpp"
+#include "headers/problem.hpp"
 
-#include "node.h"
+#include "headers/node.hpp"
 
 using namespace std;
 
