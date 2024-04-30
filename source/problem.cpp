@@ -116,6 +116,9 @@ bool Problem::GoalStateTest() {
         goalIt++;
     }
 
+    return true;
+}
+
   
 int Problem::EuclideanDistanceSearch(vector<node> startState){
     // maybe add goal state checker here
