@@ -85,7 +85,6 @@ int Problem::getPuzzleSize() {
 //     }
 
 //     cout << endl;
-// }
 
 
 int Problem::EuclideanDistanceSearch(vector<node> startState){
