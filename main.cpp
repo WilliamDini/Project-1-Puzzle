@@ -1,8 +1,6 @@
 #include <iostream>
-#include "headers/problem.hpp"
-
 #include "headers/node.hpp"
-
+#include "headers/problem.hpp"
 using namespace std;
 
 int main() {
@@ -11,7 +9,7 @@ int main() {
 
   cout << "Welcome to [TEAM NAME] 8-Puzzle Solver!" << endl << endl;
 
-  // create an instance of Problem class, with the default puzzle
+  Problem puzzle;
 
   while (true) {
     cout << "Type \"1\" to use a default puzzle or \"2\" to enter your own puzzle." << endl;
@@ -23,7 +21,7 @@ int main() {
     
     else if (userChoice == 2) {
       cout << "Enter your puzzle, use a zero to represent the blank." << endl;
-      // call the problem function that populates the puzzle array according to the user's desires
+      puzzle.userProblem();
       break;
     }
   
@@ -64,6 +62,5 @@ int main() {
     cout << endl;
   }
   
-
   return 0;
 }
