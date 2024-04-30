@@ -1,5 +1,15 @@
 {
     "files.associations": {
-        "vector": "cpp"
+        "vector": "cpp",
+        "bit": "cpp",
+        "charconv": "cpp",
+        "exception": "cpp",
+        "format": "cpp",
+        "iterator": "cpp",
+        "type_traits": "cpp",
+        "xmemory": "cpp",
+        "xstring": "cpp",
+        "xtr1common": "cpp",
+        "xutility": "cpp"
     }
 }

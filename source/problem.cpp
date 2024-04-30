@@ -84,3 +84,38 @@ int Problem::getPuzzleSize() {
 
 //     cout << endl;
 // }
+
+
+int Problem::EuclideanDistanceSearch(vector<node> startState){
+    
+    // first change states into a 2d vector and create a goals 2d vector
+    vector<vector<node> > tempStates;
+    vector<vector<int> > tempGoals = {{1,2,3}, {4,5,6}, {7,8,0}};
+
+    // push the states into the new states vector
+    int startcounter = 0;
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            tempStates[i].push_back(startState[startcounter]);
+            startcounter++;
+        }
+    }
+
+    int heuristicCost = 0;
+
+    for(int i = 0; i < tempStates.size(); i++){
+        for(int j = 0; j < tempStates[i].size(); j++){
+            // if the state is 0 or its equal to goal state: continue
+            if(tempStates[i][j].state == 0 || tempStates[i][j].state == tempGoals[i][j]){ 
+                continue;
+            }
+            // if its misplaced 
+            else{
+                // find how far each of the titles are in the x and y 
+                // run equation (i - igoaldistance)^2...
+            }
+        }
+    }
+
+    return heuristicCost; 
+}
