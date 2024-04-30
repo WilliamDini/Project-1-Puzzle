@@ -1,4 +1,5 @@
 #include <iostream>
+#include "problem.hpp"
 
 #include "node.h"
 
