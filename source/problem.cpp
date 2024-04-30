@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cmath>
+
 #include "../headers/problem.hpp"
 
 // initialize puzzle —
@@ -114,5 +116,53 @@ bool Problem::GoalStateTest() {
         goalIt++;
     }
 
-    return true;
+  
+int Problem::EuclideanDistanceSearch(vector<node> startState){
+    // maybe add goal state checker here
+
+    // first change states into a 2d vector and create a goals 2d vector
+    vector<vector<node> > tempStates;
+    vector<vector<int> > tempGoals = {{1,2,3}, {4,5,6}, {7,8,0}};
+
+    // push the states into the new states vector
+    int startcounter = 0;
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            tempStates[i].push_back(startState[startcounter]);
+            startcounter++;
+        }
+    }
+
+    double heuristicCost = 0;
+
+    for(int i = 0; i < tempStates.size(); i++){
+        for(int j = 0; j < tempStates[i].size(); j++){
+            // if the state is 0 or its equal to goal state: continue
+            if(tempStates[i][j].state == 0 || tempStates[i][j].state == tempGoals[i][j]){ 
+                continue;
+            }
+
+            // if its misplaced 
+            // find how far each of the titles are in the x and y 
+            // run equation (i - igoallocation)^2...
+            else{
+                int igoallocation = 0;
+                int jgoallocation = 0;
+
+                // find the i and j of the goal state
+                for(int ii = 0; i < tempStates.size(); i++){
+                    for(int jj = 0; j < tempStates[ii].size(); j++){
+                        if(tempStates[i][j].state == tempGoals[ii][jj]){
+                            igoallocation = ii;
+                            jgoallocation = jj;
+                        }
+                    }
+                }
+
+                heuristicCost += sqrt(pow(i-igoallocation, 2) + pow(j-igoallocation, 2));
+            }
+        }
+    }
+
+    return heuristicCost;
 }
