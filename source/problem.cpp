@@ -4,22 +4,21 @@
 // initialize puzzle —
 
 Problem::Problem() {    // default constructor
-    
-    // give start state
-    int tiles[puzzleSize + 1] = {1, 0, 3, 4, 2, 6, 7, 5, 8};
-    for (int i = 0; i < puzzleSize + 1; i++) {
+    // start state
+    int tiles[9] = {1, 0, 3, 4, 2, 6, 7, 5, 8};
+    for (int i = 0; i < puzzleSize; i++) {
         node tile;
         tile.state = tiles[i];
-        // tile.cost = 0; // FIXME
-        // tile.heuristicCost = 0; // FIXME
+        tile.cost = 0;
+        tile.heuristicCost = 0;
         // tile.p = ; // FIXME
         startState.push_back(tile);
     }
 
-    // give goal state
+    // goal state
     int puzzleTiles = 1;
 
-    for (int i = 0; i < puzzleSize; i++) {
+    for (int i = 0; i < puzzleSize - 1; i++) {
         node tile;
         tile.state = puzzleTiles;
         puzzleTiles += 1;
@@ -32,55 +31,88 @@ Problem::Problem() {    // default constructor
 
 }
 
-Problem::Problem(vector<node> startState) {    // constructor based on user input
-
+void Problem::userProblem() {    // "constructor" based on user input
+    int userInput = 0;
+    
+    for (auto i = startState.begin(); i != startState.end(); ++i) {
+        cin >> userInput;
+        i->state = userInput;
+    }
 }
+
+// accessor functions —
 
 int Problem::getPuzzleSize() {
-    return puzzleSize;
+    return puzzleSize - 1;
 }
 
-// void Problem::printStartState() { // for testing purposes
-//     int counter = 0;
+vector<node> Problem::getStartState() {
+    return startState;
+}
+vector<node> Problem::getGoalState() {
+    return goalState;
+}
 
-//     for (auto i = startState.begin(); i != startState.end(); ++i) {
+void Problem::printStartState() { // for testing purposes
+    int counter = 0;
+
+    for (auto i = startState.begin(); i != startState.end(); ++i) {
         
-//         if (i->state == 0) {
-//             cout << "* ";
-//         }
+        if (i->state == 0) {
+            cout << "* ";
+        }
 
-//         else {
-//             cout << i->state << " ";
-//         }
+        else {
+            cout << i->state << " ";
+        }
         
-//         counter += 1;
+        counter += 1;
 
-//         if (counter % 3 == 0) {
-//             cout << endl;
-//         }
-//     }
+        if (counter % 3 == 0) {
+            cout << endl;
+        }
+    }
 
-//     cout << endl;
-// }
+    cout << endl;
+}
 
-// void Problem::printGoalState() { // for testing purposes
-//     int counter = 0;
+void Problem::printGoalState() { // for testing purposes
+    int counter = 0;
 
-//     for (auto i = goalState.begin(); i != goalState.end(); ++i) {
-//         if (i->state == 0) {
-//             cout << "* ";
-//         }
+    for (auto i = goalState.begin(); i != goalState.end(); ++i) {
+        if (i->state == 0) {
+            cout << "* ";
+        }
 
-//         else {
-//             cout << i->state << " ";
-//         }
+        else {
+            cout << i->state << " ";
+        }
 
-//         counter += 1;
+        counter += 1;
 
-//         if (counter % 3 == 0) {
-//             cout << endl;
-//         }
-//     }
+        if (counter % 3 == 0) {
+            cout << endl;
+        }
+    }
 
-//     cout << endl;
-// }
+    cout << endl;
+}
+
+bool Problem::GoalStateTest() {
+
+    auto startIt = startState.begin();
+    auto goalIt = goalState.begin();
+
+    while ((startIt != startState.end()) || (goalIt != goalState.end())) {
+        cout << "start: " << startIt->state << " goal: " << goalIt->state << endl;
+
+        if (startIt->state != goalIt->state) {
+            return false;
+        }
+
+        startIt++;
+        goalIt++;
+    }
+
+    return true;
+}
