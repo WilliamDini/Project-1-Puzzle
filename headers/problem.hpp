@@ -6,7 +6,7 @@ using namespace std;
 
 class Problem {
     protected:
-        int puzzleSize = 8;
+        int puzzleSize = 9;
         vector<node> startState;
         vector<node> goalState;
         // int frontier[1];

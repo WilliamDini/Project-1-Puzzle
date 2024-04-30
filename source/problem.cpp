@@ -6,8 +6,8 @@
 Problem::Problem() {    // default constructor
     
     // give start state
-    int tiles[puzzleSize + 1] = {1, 0, 3, 4, 2, 6, 7, 5, 8};
-    for (int i = 0; i < puzzleSize + 1; i++) {
+    int tiles[9] = {1, 0, 3, 4, 2, 6, 7, 5, 8};
+    for (int i = 0; i < puzzleSize; i++) {
         node tile;
         tile.state = tiles[i];
         // tile.cost = 0; // FIXME
@@ -19,7 +19,7 @@ Problem::Problem() {    // default constructor
     // give goal state
     int puzzleTiles = 1;
 
-    for (int i = 0; i < puzzleSize; i++) {
+    for (int i = 0; i < puzzleSize - 1; i++) {
         node tile;
         tile.state = puzzleTiles;
         puzzleTiles += 1;
@@ -37,7 +37,7 @@ Problem::Problem(vector<node> startState) {    // constructor based on user inpu
 }
 
 int Problem::getPuzzleSize() {
-    return puzzleSize;
+    return puzzleSize - 1;
 }
 
 // void Problem::printStartState() { // for testing purposes
