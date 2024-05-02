@@ -9,19 +9,20 @@ int main() {
 
   cout << "Welcome to [TEAM NAME] 8-Puzzle Solver!" << endl << endl;
 
-  Problem puzzle;
+  Problem problem;
 
   while (true) {
     cout << "Type \"1\" to use a default puzzle or \"2\" to enter your own puzzle." << endl;
     cin >> userChoice;
 
     if (userChoice == 1) {
+      problem.GoalStateTest();
       break;
     }
     
     else if (userChoice == 2) {
       cout << "Enter your puzzle, use a zero to represent the blank." << endl;
-      puzzle.userProblem();
+      problem.userProblem();
       break;
     }
   

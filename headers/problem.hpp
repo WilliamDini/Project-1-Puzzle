@@ -6,19 +6,18 @@ using namespace std;
 
 class Problem {
     protected:
-        int puzzleSize = 9;
-        vector<node> startState;
-        vector<node> goalState;
+        node puzzle;
+        int puzzleSize = 3;
         // int frontier[1];
 
     public:
         Problem();
         void userProblem();
-        int getPuzzleSize();
-        vector<node> getStartState();
-        vector<node> getGoalState();
+        // int getPuzzleSize(); // dont need this for now
+        // vector<node> getStartState(); // dont need this for now
+        // vector<node> getGoalState(); // dont need this for now
         void printStartState(); // for testing purposes
-        void printGoalState();   // for testing purposes
+        // void printGoalState();   // for testing purposes
         void UniformCostSearch();
         void MisplacedTileSearch();
         double EuclideanDistanceSearch(vector<node> startState);

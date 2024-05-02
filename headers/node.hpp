@@ -5,7 +5,7 @@
 using namespace std;
 
 struct node {
-    int state;
+    int state[3][3];
     int cost = 0;
     int heuristicCost = 0;
     node *p = NULL;
