@@ -21,7 +21,7 @@ class Problem {
         void printGoalState();   // for testing purposes
         void UniformCostSearch();
         void MisplacedTileSearch();
-        int EuclideanDistanceSearch(vector<node> startState);
+        double EuclideanDistanceSearch(vector<node> startState);
         bool GoalStateTest();
 
 };

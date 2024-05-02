@@ -120,18 +120,18 @@ bool Problem::GoalStateTest() {
 }
 
   
-int Problem::EuclideanDistanceSearch(vector<node> startState){
+double Problem::EuclideanDistanceSearch(vector<node> startState){
     // maybe add goal state checker here
 
     // first change states into a 2d vector and create a goals 2d vector
-    vector<vector<node> > tempStates;
+    vector<vector<node>> tempStates(3, vector<node>(3));
     vector<vector<int> > tempGoals = {{1,2,3}, {4,5,6}, {7,8,0}};
 
     // push the states into the new states vector
     int startcounter = 0;
     for(int i = 0; i < 3; i++){
         for(int j = 0; j < 3; j++){
-            tempStates[i].push_back(startState[startcounter]);
+            tempStates[i].push_back(startState.at(startcounter));
             startcounter++;
         }
     }
@@ -153,11 +153,11 @@ int Problem::EuclideanDistanceSearch(vector<node> startState){
                 int jgoallocation = 0;
 
                 // find the i and j of the goal state
-                for(int ii = 0; i < tempStates.size(); i++){
-                    for(int jj = 0; j < tempStates[ii].size(); j++){
-                        if(tempStates[i][j].state == tempGoals[ii][jj]){
-                            igoallocation = ii;
-                            jgoallocation = jj;
+                for(int newi = 0; newi < tempStates.size(); newi++){
+                    for(int newj = 0; newj < tempStates[newi].size(); newj++){
+                        if(tempStates[i][j].state == tempGoals[newi][newj]){
+                            igoallocation = newi;
+                            jgoallocation = newj;
                         }
                     }
                 }

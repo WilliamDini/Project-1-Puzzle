@@ -53,7 +53,9 @@ int main() {
     }
 
     else if (userChoice == 3) {
-      // call euclidean distance heuristic
+      // for testing
+      // double hOfn = puzzle.EuclideanDistanceSearch(puzzle.getStartState());
+      // cout << "hOfn: " << hOfn << endl;
       break;
     }
   
