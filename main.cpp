@@ -15,7 +15,11 @@ int main() {
     cout << "Type \"1\" to use a default puzzle or \"2\" to enter your own puzzle." << endl;
     cin >> userChoice;
     
-    if (userChoice == 2) {
+    if (userChoice == 1) {
+      break;
+    }
+
+    else if (userChoice == 2) {
       cout << "Enter your puzzle, use a zero to represent the blank." << endl;
       problem.userProblem();
 
