@@ -43,7 +43,7 @@ bool Problem::GoalStateTest(node puzzleInput) {
 
     for (int i = 0; i < puzzleSize; ++i) {
         for (int j = 0; j < puzzleSize; ++j) {
-            if (puzzleInput.state[i][j]==counter) {
+            if (puzzleInput.state[i][j] == counter) {
                 counter++;
                 continue;
             }
