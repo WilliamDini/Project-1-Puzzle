@@ -10,24 +10,19 @@ class Problem {
 
     public:
         node puzzle;
-
         Problem();
         void userProblem();
-        // int getPuzzleSize(); /
-        // vector<Node> getStartState(); // dont need this for now
-        // vector<Node> getGoalState(); // dont need this for now
-        void printState(); // for testing purposes
+        // int getPuzzleSize(); // dont need this for now
+        void printStartState(); // for testing purposes
         // void printGoalState();   // for testing purposes
         void UniformCostSearch();
         void MisplacedTileSearch();
-        double EuclideanDistanceSearch(vector<Node> startState);
-        bool GoalStateTest();
-        void swapUp();
-        void swapLeft();
-        void swapRight();
-        void swapDown();
-        pair<int, int> find(int, Node);
-        int evaluate(int);
+        double EuclideanDistanceSearch(node inputPuzzle);
+        bool GoalStateTest(node puzzleInput);
+        node shiftLeft(node puzzleInput);
+        node shiftRight(node puzzleInput);
+        node shiftUp(node puzzleInput);
+        node shiftDown(node puzzleInput);
 
 };
 
