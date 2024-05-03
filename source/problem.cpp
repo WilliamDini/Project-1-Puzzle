@@ -103,3 +103,43 @@ struct Compare { // helper for priority queue
         return (a.cost + a.heuristicCost) > (b.cost + b.heuristicCost);
     } // to use: priority_queue<node, vector<node>, Compare> pq;
 };
+
+bool Problem::canShiftUp(node inputPuzzle) {
+    for (int i = 0; i < puzzleSize; i++) {
+        for (int j = 0; j < puzzleSize; j++) {
+            if (inputPuzzle.state[2][0] == 0){  // cannot shift up if the 0 is in the bottom left corner
+                return false;
+            }
+
+            if (inputPuzzle.state[2][1] == 0){ // cannot shift up if the 0 is in the bottom center
+                return false;
+            }
+        
+            if (inputPuzzle.state[2][1] == 0){ // cannot shift up if the 0 is in the bottom right corner
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool Problem::canShiftDown(node inputPuzzle) {
+    for (int i = 0; i < puzzleSize; i++) {
+        for (int j = 0; j < puzzleSize; j++) {
+            if (inputPuzzle.state[0][0] == 0){  // cannot shift down if the 0 is in the upper left corner
+                return false;
+            }
+
+            if (inputPuzzle.state[0][1] == 0){ // cannot shift down if the 0 is in the upper center
+                return false;
+            }
+        
+            if (inputPuzzle.state[0][2] == 0){ // cannot shift down if the 0 is in the upper right corner
+                return false;
+            }
+        }
+    }
+
+    return true;
+}

@@ -20,6 +20,10 @@ class Problem {
         void MisplacedTileSearch();
         double EuclideanDistanceSearch(node inputPuzzle);
         bool GoalStateTest(node puzzleInput);
+        bool canShiftUp(node inputPuzzle);
+        bool canShiftDown(node inputPuzzle);
+        bool canShiftLeft(node inputPuzzle);
+        bool canShiftRight(node inputPuzzle);
 
 };
 
