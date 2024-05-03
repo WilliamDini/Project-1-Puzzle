@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <queue>
 
 #include "../headers/problem.hpp"
 
@@ -29,6 +30,10 @@ Problem::Problem() {    // default constructor
     counter = 0;
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
+=======
+    int tiles[9] = {1, 0, 3, 4, 2, 6, 7, 5, 8};
+    for (int i = 0; i < puzzleSize; ++i) {
+        for (int j = 0; j < puzzleSize; ++j) {
             puzzle.state[i][j] = tiles[counter];
             counter++;
         }
@@ -39,7 +44,7 @@ void Problem::userProblem() {    // "constructor" based on user input
     int userInput = 0;
     
     for (int i = 0; i < 3; ++i) {
-        for(int j = 0; j < 3; ++j) {
+        for (int j = 0; j < 3; ++j) {
             cin >> userInput;
             puzzle.state[i][j] = userInput;
         }
@@ -50,6 +55,11 @@ void Problem::userProblem() {    // "constructor" based on user input
 void Problem::printState() { // for testing purposes
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
+=======
+void Problem::printStartState() { // for testing purposes
+    for (int i = 0; i < puzzleSize; ++i) {
+        for (int j = 0; j < puzzleSize; ++j) {
+
             cout << puzzle.state[i][j] << " ";
         }
         cout << endl;
@@ -57,10 +67,9 @@ void Problem::printState() { // for testing purposes
     cout << endl << endl;
 }
 
-
-bool Problem::GoalStateTest() { // need to be fixed
-
+bool Problem::GoalStateTest(node puzzleInput) {
     int counter = 1;
+
 
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j){
@@ -70,6 +79,15 @@ bool Problem::GoalStateTest() { // need to be fixed
             }
             else{
                 if(counter == 9 && puzzle.state[i][j] == 0){
+=======
+    for (int i = 0; i < puzzleSize; ++i) {
+        for (int j = 0; j < puzzleSize; ++j) {
+            if (puzzleInput.state[i][j] == counter) {
+                counter++;
+                continue;
+            }
+            else {
+                if (counter == 9 && puzzleInput.state[i][j] == 0) {
                     continue;
                 }
                 return false;
@@ -178,35 +196,47 @@ pair<int, int> Problem::find(int target, Node nodeToSearch) {
 //     }
 
 //     double heuristicCost = 0;
+double Problem::EuclideanDistanceSearch(node inputPuzzle){
+    // maybe add goal state checker here
+    if(GoalStateTest(inputPuzzle)){
+        return 0;
+    }
 
-//     for(int i = 0; i < tempStates.size(); i++){
-//         for(int j = 0; j < tempStates[i].size(); j++){
-//             // if the state is 0 or its equal to goal state: continue
-//             if(tempStates[i][j].state == 0 || tempStates[i][j].state == tempGoals[i][j]){ 
-//                 continue;
-//             }
+    int goalState[3][3] = {{1,2,3}, {4,5,6}, {7,8,0}};
 
-//             // if its misplaced 
-//             // find how far each of the titles are in the x and y 
-//             // run equation (i - igoallocation)^2...
-//             else{
-//                 int igoallocation = 0;
-//                 int jgoallocation = 0;
+    double heuristicCost = 0;
 
-//                 // find the i and j of the goal state
-//                 for(int newi = 0; newi < tempStates.size(); newi++){
-//                     for(int newj = 0; newj < tempStates[newi].size(); newj++){
-//                         if(tempStates[i][j].state == tempGoals[newi][newj]){
-//                             igoallocation = newi;
-//                             jgoallocation = newj;
-//                         }
-//                     }
-//                 }
+    for(int i = 0; i < puzzleSize; i++){
+        for(int j = 0; j < puzzleSize; ++j){
+            // see if the state is 0 or its equal to the goal state
+            if(inputPuzzle.state[i][j]==0 || inputPuzzle.state[i][j] == goalState[i][j]){
+                continue;
+            }
+            // if its misplaced
+            // find how far each of the tiles are in the x and y
+            // run equation (i - igoallocation)^2
+            else{
+                int igoallocation = 0;
+                int jgoallocation = 0;
 
-//                 heuristicCost += sqrt(pow(i-igoallocation, 2) + pow(j-igoallocation, 2));
-//             }
-//         }
-//     }
+                for(int newi = 0; newi < puzzleSize; ++newi){
+                    for(int newj = 0; newj < puzzleSize; ++newj){
+                        if(inputPuzzle.state[i][j] == goalState[newi][newj]){
+                            igoallocation = newi;
+                            jgoallocation = newj;
+                        }
+                    }
+                }
+                heuristicCost += sqrt(pow(i-igoallocation, 2) + pow(j-igoallocation, 2));
+            }
+        }
+    }
 
-//     return heuristicCost;
-// }
+    return heuristicCost;
+}
+
+struct Compare { // helper for priority queue
+    bool operator()(const node& a, const node& b){
+        return (a.cost + a.heuristicCost) > (b.cost + b.heuristicCost);
+    } // to use: priority_queue<node, vector<node>, Compare> pq;
+};

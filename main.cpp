@@ -14,15 +14,16 @@ int main() {
   while (true) {
     cout << "Type \"1\" to use a default puzzle or \"2\" to enter your own puzzle." << endl;
     cin >> userChoice;
-
-    if (userChoice == 1) {
-      problem.GoalStateTest();
-      break;
-    }
     
-    else if (userChoice == 2) {
+    if (userChoice == 2) {
       cout << "Enter your puzzle, use a zero to represent the blank." << endl;
       problem.userProblem();
+
+      if (problem.GoalStateTest(problem.puzzle)) {
+        cout << "Your puzzle is already solved." << endl;
+        return 0;
+      }
+
       break;
     }
   
@@ -55,7 +56,7 @@ int main() {
 
     else if (userChoice == 3) {
       // for testing
-      // double hOfn = puzzle.EuclideanDistanceSearch(puzzle.getStartState());
+      // double hOfn = problem.EuclideanDistanceSearch(problem.puzzle);
       // cout << "hOfn: " << hOfn << endl;
       break;
     }

@@ -6,15 +6,14 @@ using namespace std;
 
 class Problem {
     protected:
-        Node puzzle;
-        Node goalState;
         int puzzleSize = 3;
-        // int frontier[1];
 
     public:
+        node puzzle;
+
         Problem();
         void userProblem();
-        // int getPuzzleSize(); // dont need this for now
+        // int getPuzzleSize(); /
         // vector<Node> getStartState(); // dont need this for now
         // vector<Node> getGoalState(); // dont need this for now
         void printState(); // for testing purposes
