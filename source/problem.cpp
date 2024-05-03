@@ -15,7 +15,7 @@ Problem::Problem() {    // default constructor
     };
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
-            goalState.state[i][j].first = goal[counter];
+            goalState.state[i][j] = goal[counter];
             counter++;
         }
     }
@@ -29,7 +29,7 @@ Problem::Problem() {    // default constructor
     counter = 0;
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
-            puzzle.state[i][j].first = tiles[counter];
+            puzzle.state[i][j] = tiles[counter];
             counter++;
         }
     }
@@ -41,7 +41,7 @@ void Problem::userProblem() {    // "constructor" based on user input
     for (int i = 0; i < 3; ++i) {
         for(int j = 0; j < 3; ++j) {
             cin >> userInput;
-            puzzle.state[i][j].first = userInput;
+            puzzle.state[i][j] = userInput;
         }
     }
 }
@@ -50,7 +50,7 @@ void Problem::userProblem() {    // "constructor" based on user input
 void Problem::printState() { // for testing purposes
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
-            cout << puzzle.state[i][j].first << " ";
+            cout << puzzle.state[i][j] << " ";
         }
         cout << endl;
     }
@@ -64,12 +64,12 @@ bool Problem::GoalStateTest() { // need to be fixed
 
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j){
-            if(puzzle.state[i][j].first == counter){
+            if(puzzle.state[i][j] == counter){
                 counter++;
                 continue;
             }
             else{
-                if(counter == 9 && puzzle.state[i][j].first == 0){
+                if(counter == 9 && puzzle.state[i][j] == 0){
                     continue;
                 }
                 return false;
@@ -82,42 +82,42 @@ bool Problem::GoalStateTest() { // need to be fixed
 
 void Problem::swapLeft() {
     pair<int, int> blankPos(find(0, puzzle));
-    if (blankPos.second == 0) {
+    if (blankPos.second <= 0) {
         cout << "ERROR: the algorithm is attempting to swap left when this is not possible.\n";
         return;
     }
-    puzzle.state[blankPos.first][blankPos.second].first = puzzle.state[blankPos.first][blankPos.second-1].first;
-    puzzle.state[blankPos.first][blankPos.second-1].first = 0;
+    puzzle.state[blankPos.first][blankPos.second] = puzzle.state[blankPos.first][blankPos.second-1];
+    puzzle.state[blankPos.first][blankPos.second-1] = 0;
 }
 
 void Problem::swapRight() {
     pair<int, int> blankPos(find(0, puzzle));
-    if(blankPos.second == 2) {
+    if(blankPos.second >= puzzleSize-1) {
         cout << "ERROR: the algorithm is attempting to swap right when this is not possible.\n";
         return;
     }
-    puzzle.state[blankPos.first][blankPos.second].first = puzzle.state[blankPos.first][blankPos.second+1].first;
-    puzzle.state[blankPos.first][blankPos.second+1].first = 0;
+    puzzle.state[blankPos.first][blankPos.second] = puzzle.state[blankPos.first][blankPos.second+1];
+    puzzle.state[blankPos.first][blankPos.second+1] = 0;
 }
 
 void Problem::swapUp() {
     pair<int, int> blankPos(find(0, puzzle));
-    if(blankPos.first == 0) {
+    if(blankPos.first <= 0) {
         cout << "ERROR: the algorithm is attempting to swap up when this is not possible.\n";
         return;
     }
-    puzzle.state[blankPos.first][blankPos.second].first = puzzle.state[blankPos.first-1][blankPos.second].first;
-    puzzle.state[blankPos.first-1][blankPos.second].first = 0;
+    puzzle.state[blankPos.first][blankPos.second] = puzzle.state[blankPos.first-1][blankPos.second];
+    puzzle.state[blankPos.first-1][blankPos.second] = 0;
 }
 
 void Problem::swapDown() {
     pair<int, int> blankPos(find(0, puzzle));
-    if(blankPos.first == 2) {
+    if(blankPos.first >= puzzleSize-1) {
         cout << "ERROR: the algorithm is attempting to swap down when this is not possible.\n";
         return;
     }
-    puzzle.state[blankPos.first][blankPos.second].first = puzzle.state[blankPos.first+1][blankPos.second].first;
-    puzzle.state[blankPos.first+1][blankPos.second].first = 0;
+    puzzle.state[blankPos.first][blankPos.second] = puzzle.state[blankPos.first+1][blankPos.second];
+    puzzle.state[blankPos.first+1][blankPos.second] = 0;
 }
 
 //function used to evaluate the cost of a given number to the position it should be in
@@ -128,14 +128,14 @@ int Problem::evaluate(int number) {
     if (targetPos.second == -1) { targetPos.second == 0; }
     
     //if the number is in the correct position, skip the search
-    if (puzzle.state[targetPos.first][targetPos.second].first == goalState.state[targetPos.first][targetPos.second].first) {
+    if (puzzle.state[targetPos.first][targetPos.second] == goalState.state[targetPos.first][targetPos.second]) {
         return 0;
     }
     else {
         for(int i = 0; i < puzzleSize; i++) {
             for(int j = 0; j < puzzleSize; j++) {
                 //once correct position is found, calculate the distance
-                if (goalState.state[i][j].first == number) {
+                if (goalState.state[i][j] == number) {
                     return (abs(i-targetPos.first) + abs(j-targetPos.second));
                 }
             }
@@ -149,7 +149,7 @@ int Problem::evaluate(int number) {
 pair<int, int> Problem::find(int target, Node nodeToSearch) {
     for(int i = 0; i < puzzleSize; i++) {
         for(int j = 0; j < puzzleSize; j++) {
-            if(puzzle.state[i][j].first == target) {
+            if(puzzle.state[i][j] == target) {
                 pair<int, int> ret(i,j);
                 return ret;
             }
