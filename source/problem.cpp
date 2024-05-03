@@ -8,9 +8,9 @@
 Problem::Problem() {    // default constructor
     // start state
     int counter = 0;
-    int tiles[9] = {1,3,4,5,2,6,7,8,0};
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j) {
+    int tiles[9] = {1, 3, 4, 5, 2, 6, 7, 8, 0};
+    for (int i = 0; i < puzzleSize; ++i) {
+        for (int j = 0; j < puzzleSize; ++j) {
             puzzle.state[i][j] = tiles[counter];
             counter++;
         }
@@ -21,7 +21,7 @@ void Problem::userProblem() {    // "constructor" based on user input
     int userInput = 0;
     
     for (int i = 0; i < 3; ++i) {
-        for(int j = 0; j < 3; ++j) {
+        for (int j = 0; j < 3; ++j) {
             cin >> userInput;
             puzzle.state[i][j] = userInput;
         }
@@ -29,8 +29,8 @@ void Problem::userProblem() {    // "constructor" based on user input
 }
 
 void Problem::printStartState() { // for testing purposes
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j) {
+    for (int i = 0; i < puzzleSize; ++i) {
+        for (int j = 0; j < puzzleSize; ++j) {
             cout << puzzle.state[i][j] << " ";
         }
         cout << endl;
