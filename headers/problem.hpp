@@ -6,7 +6,8 @@ using namespace std;
 
 class Problem {
     protected:
-        node puzzle;
+        Node puzzle;
+        Node goalState;
         int puzzleSize = 3;
         // int frontier[1];
 
@@ -14,18 +15,20 @@ class Problem {
         Problem();
         void userProblem();
         // int getPuzzleSize(); // dont need this for now
-        // vector<node> getStartState(); // dont need this for now
-        // vector<node> getGoalState(); // dont need this for now
+        // vector<Node> getStartState(); // dont need this for now
+        // vector<Node> getGoalState(); // dont need this for now
         void printState(); // for testing purposes
         // void printGoalState();   // for testing purposes
         void UniformCostSearch();
         void MisplacedTileSearch();
-        double EuclideanDistanceSearch(vector<node> startState);
+        double EuclideanDistanceSearch(vector<Node> startState);
         bool GoalStateTest();
-        void swapUp(pair<int, int>);
-        void swapLeft(pair<int, int>);
-        void swapRight(pair<int, int>);
-        void swapDown(pair<int, int>);
+        void swapUp();
+        void swapLeft();
+        void swapRight();
+        void swapDown();
+        pair<int, int> find(int, Node);
+        int evaluate(int);
 
 };
 
