@@ -143,3 +143,43 @@ bool Problem::canShiftDown(node inputPuzzle) {
 
     return true;
 }
+
+bool Problem::canShiftLeft(node inputPuzzle) {
+    for (int i = 0; i < puzzleSize; i++) {
+        for (int j = 0; j < puzzleSize; j++) {
+            if (inputPuzzle.state[0][2] == 0){  // cannot shift left if the 0 is in the rightmost column (upper corner)
+                return false;
+            }
+
+            if (inputPuzzle.state[1][2] == 0){ // cannot shift left if the 0 is in the rightmost column (center)
+                return false;
+            }
+        
+            if (inputPuzzle.state[1][2] == 0){ // cannot shift left if the 0 is in the rightmost column (bottom corner)
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool Problem::canShiftRight(node inputPuzzle) {
+    for (int i = 0; i < puzzleSize; i++) {
+        for (int j = 0; j < puzzleSize; j++) {
+            if (inputPuzzle.state[0][0] == 0){  // cannot shift right if the 0 is in the leftmost column (upper corner)
+                return false;
+            }
+
+            if (inputPuzzle.state[1][0] == 0){ // cannot shift right if the 0 is in the leftmost column (center)
+                return false;
+            }
+        
+            if (inputPuzzle.state[1][0] == 0){ // cannot shift right if the 0 is in the leftmost column (bottom corner)
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
