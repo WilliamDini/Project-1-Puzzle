@@ -10,11 +10,12 @@ class Problem {
 
     public:
         node puzzle;
+
         Problem();
         void userProblem();
         // int getPuzzleSize(); // dont need this for now
         void printStartState(); // for testing purposes
-        // void printGoalState();   // for testing purposes
+        // void printGoalState(); // for testing purposes
         void UniformCostSearch();
         void MisplacedTileSearch();
         double EuclideanDistanceSearch(node inputPuzzle);
