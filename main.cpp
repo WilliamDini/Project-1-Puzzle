@@ -16,13 +16,18 @@ int main() {
     cin >> userChoice;
 
     if (userChoice == 1) {
-      problem.GoalStateTest();
+      problem.GoalStateTest(problem.puzzle);
       break;
     }
     
     else if (userChoice == 2) {
       cout << "Enter your puzzle, use a zero to represent the blank." << endl;
       problem.userProblem();
+      if(problem.GoalStateTest(problem.puzzle)){
+        cout << "Your puzzle is already solved." << endl;
+        return 0;
+      }
+
       break;
     }
   
@@ -55,7 +60,7 @@ int main() {
 
     else if (userChoice == 3) {
       // for testing
-      // double hOfn = puzzle.EuclideanDistanceSearch(puzzle.getStartState());
+      // double hOfn = problem.EuclideanDistanceSearch(problem.puzzle);
       // cout << "hOfn: " << hOfn << endl;
       break;
     }
