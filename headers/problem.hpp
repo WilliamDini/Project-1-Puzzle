@@ -16,12 +16,16 @@ class Problem {
         // int getPuzzleSize(); // dont need this for now
         // vector<node> getStartState(); // dont need this for now
         // vector<node> getGoalState(); // dont need this for now
-        void printStartState(); // for testing purposes
+        void printState(); // for testing purposes
         // void printGoalState();   // for testing purposes
         void UniformCostSearch();
         void MisplacedTileSearch();
         double EuclideanDistanceSearch(vector<node> startState);
         bool GoalStateTest();
+        void swapUp(pair<int, int>);
+        void swapLeft(pair<int, int>);
+        void swapRight(pair<int, int>);
+        void swapDown(pair<int, int>);
 
 };
 

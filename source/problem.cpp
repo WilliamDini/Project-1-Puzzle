@@ -28,7 +28,7 @@ void Problem::userProblem() {    // "constructor" based on user input
     }
 }
 
-void Problem::printStartState() { // for testing purposes
+void Problem::printState() { // for testing purposes
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
             cout << puzzle.state[i][j] << " ";
@@ -58,6 +58,42 @@ bool Problem::GoalStateTest() { // need to be fixed
     }
     
     return true;
+}
+
+void Problem::swapUp(pair<int, int> blankPos) {
+    if (blankPos.second == 0) {
+        cout << "ERROR: the algorithm is attempting to swap up when this is not possible.\n";
+        return;
+    }
+    puzzle.state[blankPos.first][blankPos.second] = puzzle.state[blankPos.first][blankPos.second-1];
+    puzzle.state[blankPos.first][blankPos.second-1] = 0;
+}
+
+void Problem::swapDown(pair<int, int> blankPos) {
+    if(blankPos.second == 2) {
+        cout << "ERROR: the algorithm is attempting to swap down when this is not possible.\n";
+        return;
+    }
+    puzzle.state[blankPos.first][blankPos.second] = puzzle.state[blankPos.first][blankPos.second+1];
+    puzzle.state[blankPos.first][blankPos.second+1] = 0;
+}
+
+void Problem::swapLeft(pair<int, int> blankPos) {
+    if(blankPos.first == 0) {
+        cout << "ERROR: the algorithm is attempting to swap left when this is not possible.\n";
+        return;
+    }
+    puzzle.state[blankPos.first][blankPos.second] = puzzle.state[blankPos.first-1][blankPos.second];
+    puzzle.state[blankPos.first-1][blankPos.second] = 0;
+}
+
+void Problem::swapRight(pair<int, int> blankPos) {
+    if(blankPos.first == 2) {
+        cout << "ERROR: the algorithm is attempting to swap right when this is not possible.\n";
+        return;
+    }
+    puzzle.state[blankPos.first][blankPos.second] = puzzle.state[blankPos.first+1][blankPos.second];
+    puzzle.state[blankPos.first+1][blankPos.second] = 0;
 }
 
   
