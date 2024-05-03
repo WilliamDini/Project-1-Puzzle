@@ -13,13 +13,21 @@ class Problem {
 
         Problem();
         void userProblem();
-        // int getPuzzleSize(); // dont need this for now
-        void printStartState(); // for testing purposes
-        // void printGoalState(); // for testing purposes
+        // int getPuzzleSize(); /
+        // vector<Node> getStartState(); // dont need this for now
+        // vector<Node> getGoalState(); // dont need this for now
+        void printState(); // for testing purposes
+        // void printGoalState();   // for testing purposes
         void UniformCostSearch();
         void MisplacedTileSearch();
-        double EuclideanDistanceSearch(node inputPuzzle);
-        bool GoalStateTest(node puzzleInput);
+        double EuclideanDistanceSearch(vector<Node> startState);
+        bool GoalStateTest();
+        void swapUp();
+        void swapLeft();
+        void swapRight();
+        void swapDown();
+        pair<int, int> find(int, Node);
+        int evaluate(int);
 
 };
 
