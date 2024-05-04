@@ -9,8 +9,8 @@
 Problem::Problem() {    // default constructor
     // start state
     int counter = 0;
-    int tiles[9] = {1,2,3,4,5,6,7,8,0};
-    // int tiles[9] = {8,3,4,5,2,6,7,1,0};
+    // int tiles[9] = {1,2,3,4,5,6,7,8,0};
+    int tiles[9] = {8,3,4,5,2,6,7,1,0};
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
             puzzle.state[i][j] = tiles[counter];
@@ -63,7 +63,7 @@ bool Problem::GoalStateTest(node puzzleInput) { // need to be fixed
 
 node Problem::shiftLeft(node puzzleInput) {
     if(!canShiftLeft(puzzleInput)){
-        return;
+        return puzzleInput;
     }
 
     int ilocation = 0;
@@ -86,7 +86,7 @@ node Problem::shiftLeft(node puzzleInput) {
 
 node Problem::shiftRight(node puzzleInput){
     if(!canShiftRight(puzzleInput)){
-        return;
+        return puzzleInput;
     }
 
     int ilocation = 0;
@@ -109,7 +109,7 @@ node Problem::shiftRight(node puzzleInput){
 
 node Problem::shiftUp(node puzzleInput){
     if(!canShiftUp(puzzleInput)){
-        return;
+        return puzzleInput;
     }
 
     int ilocation = 0;
@@ -132,7 +132,7 @@ node Problem::shiftUp(node puzzleInput){
 
 node Problem::shiftDown(node puzzleInput){
     if(!canShiftDown(puzzleInput)){
-        return;
+        return puzzleInput;
     }
 
     int ilocation = 0;
@@ -340,3 +340,62 @@ bool Problem::canShiftRight(node inputPuzzle) {
 
     return true;
 }
+
+int Problem::MisplacedTileSearch(node inputPuzzle) {
+    if(GoalStateTest(inputPuzzle)) {
+        return 0;
+    }
+    /*
+        i = 1   [1, 2, 3]
+        i = 2   [4, 5, 6]
+        i = 3   [7, 8, 0]
+    */
+    // int i, j;
+    // int counter = 1;
+    // int goalS[puzzleSize][puzzleSize];
+    // for(i = 0; i < puzzleSize; ++i) {
+    //     for(j = 0; j < puzzleSize; ++j) {
+    //         if(i != puzzleSize - 1 && j != puzzleSize - 1) {
+    //             goalS[i][j] = counter;
+    //             counter++;
+    //         }
+    //         else {
+    //              goalS[i][j] = 0;
+    //         }
+    //     }
+    // }
+
+    int goalS[3][3] = {{1,2,3}, {4,5,6}, {7,8,0}};
+
+    int heuCount = 0;
+    for(int i = 0; i < puzzleSize; ++i) {
+        for(int j = 0; j < puzzleSize; ++j) {
+            if(inputPuzzle.state[i][j] != goalS[i][j]) {
+                heuCount++;
+            }
+        }
+    }
+    return heuCount;
+}
+
+/*
+    Goal State
+
+    [1  2   3]
+    [4  5   6]
+    [7  8   *]
+
+    1 =>    [1(0)  1(1)   1(2)]     2 =>    [2(1)  2(0)   2(1)]     2 =>    [3(2)  3(1)   3(0)]
+            [1(1)  1(2)   1(3)]             [2(2)  2(1)   2(2)]             [3(3)  3(2)   3(1)]
+            [1(2)  1(3)   1(4)]             [2(3)  2(2)   2(3)]             [3(4)  3(3)   3(2)]
+
+    4 =>    [4(1)  4(2)   4(3)]     5 =>    [5(2)  5(1)   5(2)]     6 =>    [6(3)  6(2)   6(1)]
+            [4(0)  4(1)   4(2)]             [5(1)  5(0)   5(1)]             [6(2)  6(1)   6(0)]
+            [4(1)  4(2)   4(3)]             [5(2)  5(1)   5(2)]             [6(3)  6(2)   6(1)]
+
+    7 =>    [7(2)  7(3)   7(4)]     8 =>    [8(3)  8(2)   8(3)]     * =>    [*(4)  *(3)   *(2)]
+            [7(1)  7(2)   7(3)]             [8(2)  8(1)   8(2)]             [*(3)  *(2)   *(1)]
+            [7(0)  7(1)   7(2)]             [8(1)  8(0)   8(1)]             [*(2)  *(1)   *(0)]
+
+    Goal[SizeProblem] = [1, 2, 3,..., n]
+*/
