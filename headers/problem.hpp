@@ -16,7 +16,7 @@ class Problem {
         void printStartState(); // for testing purposes
         // void printGoalState();   // for testing purposes
         void UniformCostSearch();
-        void MisplacedTileSearch();
+        int MisplacedTileSearch(node inputPuzzle);
         double EuclideanDistanceSearch(node inputPuzzle);
         bool GoalStateTest(node puzzleInput);
   
