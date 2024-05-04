@@ -75,6 +75,78 @@ bool Problem::GoalStateTest(node puzzleInput) {
     return true;
 }
 
+bool Problem::canShiftUp(node inputPuzzle) {
+    int ilocation = 0;
+    int jlocation = 0;
+
+    for(int i = 0; i < puzzleSize; ++i) {
+        for(int j = 0; j < puzzleSize; ++j){
+            if(inputPuzzle.state[i][j]==0){
+                ilocation = i;
+                jlocation = j;
+            }
+        }
+    }
+    if(ilocation==0){
+        return false;
+    }
+    return true;
+}
+
+bool Problem::canShiftDown(node inputPuzzle) {
+    int ilocation = 0;
+    int jlocation = 0;
+
+    for(int i = 0; i < puzzleSize; ++i) {
+        for(int j = 0; j < puzzleSize; ++j){
+            if(inputPuzzle.state[i][j]==0){
+                ilocation = i;
+                jlocation = j;
+            }
+        }
+    }
+    if(ilocation==2){
+        return false;
+    }
+    return true;
+}
+
+bool Problem::canShiftLeft(node inputPuzzle) {
+    int ilocation = 0;
+    int jlocation = 0;
+
+    for(int i = 0; i < puzzleSize; ++i) {
+        for(int j = 0; j < puzzleSize; ++j){
+            if(inputPuzzle.state[i][j]==0){
+                ilocation = i;
+                jlocation = j;
+            }
+        }
+    }
+    if(jlocation==0){
+        return false;
+    }
+    return true;
+}
+
+bool Problem::canShiftRight(node inputPuzzle) {
+    int ilocation = 0;
+    int jlocation = 0;
+
+    for(int i = 0; i < puzzleSize; ++i) {
+        for(int j = 0; j < puzzleSize; ++j){
+            if(inputPuzzle.state[i][j]==0){
+                ilocation = i;
+                jlocation = j;
+            }
+        }
+    }
+    if(jlocation==2){
+        return false;
+    }
+    return true;
+}
+
 node Problem::shiftLeft(node puzzleInput) {
     int ilocation = 0;
     int jlocation = 0;
@@ -150,6 +222,24 @@ node Problem::shiftDown(node puzzleInput){
 
     return puzzleInput;
 }
+
+int Problem::MisplacedTileSearch(node inputPuzzle) {
+    if(GoalStateTest(inputPuzzle)) {
+        return 0;
+    }
+
+    int goalS[3][3] = {{1,2,3}, {4,5,6}, {7,8,0}};
+
+    int heuCount = 0;
+    for(int i = 0; i < puzzleSize; ++i) {
+        for(int j = 0; j < puzzleSize; ++j) {
+            if(inputPuzzle.state[i][j] != goalS[i][j]) {
+                heuCount++;
+            }
+        }
+    }
+    return heuCount;
+}
   
 double Problem::EuclideanDistanceSearch(node puzzleInput){
     // maybe add goal state checker here
@@ -192,8 +282,8 @@ double Problem::EuclideanDistanceSearch(node puzzleInput){
 
 struct Compare{ // helper for priority queue
     bool operator()(const node& a, const node& b){
-        return (a.cost + a.heuristicCost) > (b.cost + b.heuristicCost);
-    } // to use: priority_queue<node, vector<node>, Compare> pq;
+        return (a.cost + a.heuristicCost) > (b.cost + b.heuristicCost); // places the lowest cost at the top of the priority queue
+    } 
 };
 
 struct hashFunction{ // helper for the hashtable 
@@ -255,18 +345,18 @@ node Problem::uniformCostSearch(int whichHeuristic){
         // if it wasnt visited then add to hashmap
         hash.insert(checkIfVisited);
         
-        if(canShiftUp(top)){
-            node new_node;
-            new_node = shiftUp(top);
-            new_node.cost = top.cost + 1;
-            if(whichHeuristic == 2){
+        if(canShiftUp(top)){ // check if you can shift up
+            node new_node; // if you can then make a new node
+            new_node = shiftUp(top); // set the node equal to the shifted up state
+            new_node.cost = top.cost + 1; // change the cost + 1 because you are branching down again
+            if(whichHeuristic == 2){ // see if a heuristic was called
                 new_node.heuristicCost = MisplacedTileSearch(new_node);
             }
             else if(whichHeuristic == 3){
                 new_node.heuristicCost = EuclideanDistanceSearch(new_node);
             }
-            new_node.p = new node(top); // Create a copy of top as parent
-            pqueue.push(new_node);
+            new_node.p = new node(top); // add the parent node which is the element selected from the priority queue
+            pqueue.push(new_node); // push the element to the priority queue, it will use the compare struct made above to see where it should be placed
         }
         
         if(canShiftDown(top)){
@@ -279,7 +369,7 @@ node Problem::uniformCostSearch(int whichHeuristic){
             else if(whichHeuristic == 3){
                 new_node.heuristicCost = EuclideanDistanceSearch(new_node);
             }
-            new_node.p = new node(top); // Create a copy of top as parent
+            new_node.p = new node(top);
             pqueue.push(new_node);
         }
 
@@ -293,7 +383,7 @@ node Problem::uniformCostSearch(int whichHeuristic){
             else if(whichHeuristic == 3){
                 new_node.heuristicCost = EuclideanDistanceSearch(new_node);
             }
-            new_node.p = new node(top); // Create a copy of top as parent
+            new_node.p = new node(top);
             pqueue.push(new_node);
         }
 
@@ -307,100 +397,10 @@ node Problem::uniformCostSearch(int whichHeuristic){
             else if(whichHeuristic == 3){
                 new_node.heuristicCost = EuclideanDistanceSearch(new_node);
             }
-            new_node.p = new node(top); // Create a copy of top as parent
+            new_node.p = new node(top);
             pqueue.push(new_node);
         }
     }
     cout << "Couldn't be Solved" << endl;
     return puzzle;
-}
-
-bool Problem::canShiftUp(node inputPuzzle) {
-    int ilocation = 0;
-    int jlocation = 0;
-
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(inputPuzzle.state[i][j]==0){
-                ilocation = i;
-                jlocation = j;
-            }
-        }
-    }
-    if(ilocation==0){
-        return false;
-    }
-    return true;
-}
-
-bool Problem::canShiftDown(node inputPuzzle) {
-    int ilocation = 0;
-    int jlocation = 0;
-
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(inputPuzzle.state[i][j]==0){
-                ilocation = i;
-                jlocation = j;
-            }
-        }
-    }
-    if(ilocation==2){
-        return false;
-    }
-    return true;
-}
-
-bool Problem::canShiftLeft(node inputPuzzle) {
-    int ilocation = 0;
-    int jlocation = 0;
-
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(inputPuzzle.state[i][j]==0){
-                ilocation = i;
-                jlocation = j;
-            }
-        }
-    }
-    if(jlocation==0){
-        return false;
-    }
-    return true;
-}
-
-bool Problem::canShiftRight(node inputPuzzle) {
-    int ilocation = 0;
-    int jlocation = 0;
-
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(inputPuzzle.state[i][j]==0){
-                ilocation = i;
-                jlocation = j;
-            }
-        }
-    }
-    if(jlocation==2){
-        return false;
-    }
-    return true;
-}
-
-int Problem::MisplacedTileSearch(node inputPuzzle) {
-    if(GoalStateTest(inputPuzzle)) {
-        return 0;
-    }
-
-    int goalS[3][3] = {{1,2,3}, {4,5,6}, {7,8,0}};
-
-    int heuCount = 0;
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j) {
-            if(inputPuzzle.state[i][j] != goalS[i][j]) {
-                heuCount++;
-            }
-        }
-    }
-    return heuCount;
 }
