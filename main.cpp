@@ -39,6 +39,7 @@ int main() {
   cout << "A puzzle has been created." << endl << endl;
 
   userChoice = 0;   // reset the variable for next choice
+  priority_queue <node, vector<node>, Compare> pq>;
   node initial_node;
 
   while (true) {
