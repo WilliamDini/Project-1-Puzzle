@@ -16,7 +16,7 @@ class Problem {
         void printStartState(); // for testing purposes
 
         //void printGoalState();   // for testing purposes
-        node uniformCostSearch(const node& initialNode);
+        node uniformCostSearch(int whichHeuristic);
         vector<node> expand(const node& puzzleInput);
 
         int MisplacedTileSearch(node inputPuzzle);

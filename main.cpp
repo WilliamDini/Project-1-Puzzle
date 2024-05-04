@@ -39,8 +39,6 @@ int main() {
   cout << "A puzzle has been created." << endl << endl;
 
   userChoice = 0;   // reset the variable for next choice
-  priority_queue <node, vector<node>, Compare> pq>;
-  node initial_node;
 
   while (true) {
     cout << "Enter your choice of algorithm. Only type the number of the chosen option." << endl;
@@ -51,14 +49,15 @@ int main() {
     cin >> userChoice;
 
     if (userChoice == 1) {
-      uniformCostSearch(initial_node);
+      node solved = problem.uniformCostSearch(1);
       break;
     }
 
     else if (userChoice == 2) {
       // call misplaced tile heuristic
-      int misplaced = problem.MisplacedTileSearch(problem.puzzle);
-      cout << misplaced << endl;
+      // int misplaced = problem.MisplacedTileSearch(problem.puzzle);
+      // cout << misplaced << endl;
+      node solved = problem.uniformCostSearch(2);
       break;
     }
 
@@ -66,6 +65,7 @@ int main() {
       // for testing
       // double hOfn = problem.EuclideanDistanceSearch(problem.puzzle);
       // cout << "hOfn: " << hOfn << endl;
+      node solved = problem.uniformCostSearch(3);
       break;
     }
   
