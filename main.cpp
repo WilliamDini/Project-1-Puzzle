@@ -39,6 +39,8 @@ int main() {
   cout << "A puzzle has been created." << endl << endl;
 
   userChoice = 0;   // reset the variable for next choice
+  priority_queue <node, vector<node>, Compare> pq>;
+  node initial_node;
 
   while (true) {
     cout << "Enter your choice of algorithm. Only type the number of the chosen option." << endl;
@@ -49,7 +51,7 @@ int main() {
     cin >> userChoice;
 
     if (userChoice == 1) {
-      // call uniform cost search
+      uniformCostSearch(initial_node);
       break;
     }
 
@@ -71,6 +73,7 @@ int main() {
     cin.ignore(80, '\n');
     cout << endl;
   }
+
   
   return 0;
 }

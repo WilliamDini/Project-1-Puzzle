@@ -198,6 +198,69 @@ struct Compare{ // helper for priority queue
     } // to use: priority_queue<node, vector<node>, Compare> pq;
 };
 
+
+vector<node> Problem::expand(const node& puzzleInput) {
+    vector<node> successors;
+
+    int emptyTileRow = -1;
+    int emptyTileCol = -1;
+    for (int i = 0; i < puzzleSize; ++i) {
+        for (int j = 0; j < puzzleSize; ++j) {
+            if (puzzleInput.state[i][j] == 0) {
+                emptyTileRow = i;
+                emptyTileCol = j;
+                break;
+            }
+        }
+    }
+
+    if (emptyTileRow > 0) {
+        node successor = puzzleInput;
+        swap(successor.state[emptyTileRow][emptyTileCol], successor.state[emptyTileRow - 1][emptyTileCol]);
+        successors.push_back(successor);
+    }
+    if (emptyTileRow < puzzleSize - 1) {
+        Node successor = puzzleInput;
+        swap(successor.state[emptyTileRow][emptyTileCol], successor.state[emptyTileRow + 1][emptyTileCol]);
+        successors.push_back(successor);
+    }
+    if (emptyTileCol > 0) {
+        Node successor = puzzleInput;
+        swap(successor.state[emptyTileRow][emptyTileCol], successor.state[emptyTileRow][emptyTileCol - 1]);
+        successors.push_back(successor);
+    }
+    if (emptyTileCol < puzzleSize - 1) {
+        Node successor = puzzleInput;
+        swap(successor.state[emptyTileRow][emptyTileCol], successor.state[emptyTileRow][emptyTileCol + 1]);
+        successors.push_back(successor);
+    }
+
+    return successors;
+}
+
+node Problem::uniformCostSearch(const node& initialNode){
+    queue<node> nodes;
+    nodes.push({initialNode});
+
+    while(!node.empty()){
+
+        node current_node = node.front();
+        nodes.pop();
+
+        if(goalTest(current_node.state)){
+            cout << "A soultion is found!" << endl;
+            return current_node;
+        }
+        vector<node> successors = expand(current_node);
+        for(const suato& successors : successors){
+            node.push(successor);
+        }
+    }
+    cout << "No solution is found!" << endl;
+    return node();
+
+}
+
 bool Problem::canShiftUp(node inputPuzzle) {
     for (int i = 0; i < puzzleSize; i++) {
         for (int j = 0; j < puzzleSize; j++) {
