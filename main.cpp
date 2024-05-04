@@ -55,6 +55,8 @@ int main() {
 
     else if (userChoice == 2) {
       // call misplaced tile heuristic
+      int misplaced = problem.MisplacedTileSearch(problem.puzzle);
+      cout << misplaced << endl;
       break;
     }
 

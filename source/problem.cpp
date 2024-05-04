@@ -9,8 +9,8 @@
 Problem::Problem() {    // default constructor
     // start state
     int counter = 0;
-    int tiles[9] = {1,2,3,4,5,6,7,8,0};
-    // int tiles[9] = {8,3,4,5,2,6,7,1,0};
+    // int tiles[9] = {1,2,3,4,5,6,7,8,0};
+    int tiles[9] = {8,3,4,5,2,6,7,1,0};
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
             puzzle.state[i][j] = tiles[counter];
@@ -63,7 +63,7 @@ bool Problem::GoalStateTest(node puzzleInput) { // need to be fixed
 
 node Problem::shiftLeft(node puzzleInput) {
     if(!canShiftLeft(puzzleInput)){
-        return;
+        return puzzleInput;
     }
 
     int ilocation = 0;
@@ -86,7 +86,7 @@ node Problem::shiftLeft(node puzzleInput) {
 
 node Problem::shiftRight(node puzzleInput){
     if(!canShiftRight(puzzleInput)){
-        return;
+        return puzzleInput;
     }
 
     int ilocation = 0;
@@ -109,7 +109,7 @@ node Problem::shiftRight(node puzzleInput){
 
 node Problem::shiftUp(node puzzleInput){
     if(!canShiftUp(puzzleInput)){
-        return;
+        return puzzleInput;
     }
 
     int ilocation = 0;
@@ -132,7 +132,7 @@ node Problem::shiftUp(node puzzleInput){
 
 node Problem::shiftDown(node puzzleInput){
     if(!canShiftDown(puzzleInput)){
-        return;
+        return puzzleInput;
     }
 
     int ilocation = 0;
@@ -287,24 +287,26 @@ int Problem::MisplacedTileSearch(node inputPuzzle) {
         i = 2   [4, 5, 6]
         i = 3   [7, 8, 0]
     */
-    int i, j;
-    int counter = 1;
-    int goalS[this->puzzleSize][this->puzzleSize];
-    for(i = 0; i < this->puzzleSize; ++i) {
-        for(j = 0; j < this->puzzleSize; ++j) {
-            if(i != puzzleSize - 1 && j != puzzleSize - 1) {
-                goalS[i][j] = counter;
-                counter++;
-            }
-            else {
-                 goalS[i][j] = 0;
-            }
-        }
-    }
+    // int i, j;
+    // int counter = 1;
+    // int goalS[puzzleSize][puzzleSize];
+    // for(i = 0; i < puzzleSize; ++i) {
+    //     for(j = 0; j < puzzleSize; ++j) {
+    //         if(i != puzzleSize - 1 && j != puzzleSize - 1) {
+    //             goalS[i][j] = counter;
+    //             counter++;
+    //         }
+    //         else {
+    //              goalS[i][j] = 0;
+    //         }
+    //     }
+    // }
+    
+    int goalS[3][3] = {1,2,3,4,5,6,7,8,0};
 
     int heuCount = 0;
-    for(i = 0; i < this->puzzleSize; ++i) {
-        for(j = 0; j < this->puzzleSize; ++j) {
+    for(int i = 0; i < puzzleSize; ++i) {
+        for(int j = 0; j < puzzleSize; ++j) {
             if(inputPuzzle.state[i][j] != goalS[i][j]) {
                 heuCount++;
             }
