@@ -14,8 +14,9 @@ class Problem {
         void userProblem();
         // int getPuzzleSize(); // dont need this for now
         void printStartState(); // for testing purposes
-        // void printGoalState();   // for testing purposes
-        void UniformCostSearch();
+        //void printGoalState();   // for testing purposes
+        node uniformCostSearch(const node& initialNode);
+        vector<node> expand(const node& puzzleInput);
         void MisplacedTileSearch();
         double EuclideanDistanceSearch(node inputPuzzle);
         bool GoalStateTest(node puzzleInput);
