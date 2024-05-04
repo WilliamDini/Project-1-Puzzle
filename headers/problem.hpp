@@ -17,7 +17,6 @@ class Problem {
         void printState(node puzzleInput);
 
         node uniformCostSearch(int whichHeuristic);
-        vector<node> expand(const node& puzzleInput);
 
         int MisplacedTileSearch(node inputPuzzle);
 

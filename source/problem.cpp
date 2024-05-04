@@ -11,11 +11,10 @@
 Problem::Problem() {    // default constructor
     // start state
     int counter = 0;
-    int tiles[9] = {1,2,3,4,8,0,7,6,5};
-    // int tiles[9] = {8,3,4,5,2,6,7,1,0};
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j) {
-            puzzle.state[i][j] = tiles[counter];
+    int tiles[9] = {1,2,3,4,8,0,7,6,5}; // to be populated in the dynamic vector
+    for(int i = 0; i < puzzleSize; ++i) {   // puzzle column
+        for(int j = 0; j < puzzleSize; ++j) {   // puzzle row
+            puzzle.state[i][j] = tiles[counter];    // build the start state puzzle, one integer at a time
             counter++;
         }
     }
@@ -24,10 +23,10 @@ Problem::Problem() {    // default constructor
 void Problem::userProblem() {    // "constructor" based on user input
     int userInput = 0;
     
-    for (int i = 0; i < 3; ++i) {
-        for(int j = 0; j < 3; ++j) {
+    for (int i = 0; i < 3; ++i) {   // puzzle column
+        for(int j = 0; j < 3; ++j) {    // puzzle row
             cin >> userInput;
-            puzzle.state[i][j] = userInput;
+            puzzle.state[i][j] = userInput; // change the start state puzzle according to user input
         }
     }
 }
@@ -36,18 +35,18 @@ int Problem::getPuzzleSize() {
     return puzzleSize;
 }
 
-void Problem::printStartState() {
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j) {
+void Problem::printStartState() {   // print for start state puzzle
+    for(int i = 0; i < puzzleSize; ++i) {   // puzzle column
+        for(int j = 0; j < puzzleSize; ++j) {   // puzzle row
             cout << puzzle.state[i][j] << " ";
         }
         cout << endl;
     }
 }
 
-void Problem::printState(node puzzleInput){
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j) {
+void Problem::printState(node puzzleInput) { // print for current state puzzle
+    for(int i = 0; i < puzzleSize; ++i) {   // puzzle column
+        for(int j = 0; j < puzzleSize; ++j) {   // puzzle row
             cout << puzzleInput.state[i][j] << " ";
         }
         cout << endl;
@@ -57,14 +56,14 @@ void Problem::printState(node puzzleInput){
 bool Problem::GoalStateTest(node puzzleInput) {
     int counter = 1;
 
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(puzzleInput.state[i][j]==counter){
+    for(int i = 0; i < puzzleSize; ++i) {   // puzzle column
+        for(int j = 0; j < puzzleSize; ++j) {    // puzzle row
+            if(puzzleInput.state[i][j]==counter) {  // checking if the numbers in the puzzle are in increasing order
                 counter++;
                 continue;
             }
             else{
-                if(counter == 9 && puzzleInput.state[i][j]==0){
+                if(counter == 9 && puzzleInput.state[i][j]==0) { // checking if the ninth number is a 0
                     continue;
                 }
                 return false;
@@ -79,15 +78,15 @@ bool Problem::canShiftUp(node inputPuzzle) {
     int ilocation = 0;
     int jlocation = 0;
 
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(inputPuzzle.state[i][j]==0){
+    for(int i = 0; i < puzzleSize; ++i) {   // puzzle column
+        for(int j = 0; j < puzzleSize; ++j) {   // puzzle row
+            if(inputPuzzle.state[i][j]==0) {    // if the location of the 0 is found, store it
                 ilocation = i;
                 jlocation = j;
             }
         }
     }
-    if(ilocation==0){
+    if(ilocation==0) {  // if 0 is in the top row, shift up is impossible
         return false;
     }
     return true;
@@ -97,15 +96,15 @@ bool Problem::canShiftDown(node inputPuzzle) {
     int ilocation = 0;
     int jlocation = 0;
 
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(inputPuzzle.state[i][j]==0){
+    for(int i = 0; i < puzzleSize; ++i) {   // puzzle column
+        for(int j = 0; j < puzzleSize; ++j) {   // puzzle row
+            if(inputPuzzle.state[i][j]==0) {    // if the location of the 0 is found, store it
                 ilocation = i;
                 jlocation = j;
             }
         }
     }
-    if(ilocation==2){
+    if(ilocation==2) {  // if 0 is in the bottom row, shift down is impossible
         return false;
     }
     return true;
@@ -115,15 +114,15 @@ bool Problem::canShiftLeft(node inputPuzzle) {
     int ilocation = 0;
     int jlocation = 0;
 
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(inputPuzzle.state[i][j]==0){
+    for(int i = 0; i < puzzleSize; ++i) {   // puzzle column
+        for(int j = 0; j < puzzleSize; ++j) {   // puzzle row
+            if(inputPuzzle.state[i][j]==0) {    // if the location of the 0 is found, store it
                 ilocation = i;
                 jlocation = j;
             }
         }
     }
-    if(jlocation==0){
+    if(jlocation==0) { // if 0 is in the leftmost column, shift left is impossible
         return false;
     }
     return true;
@@ -133,15 +132,15 @@ bool Problem::canShiftRight(node inputPuzzle) {
     int ilocation = 0;
     int jlocation = 0;
 
-    for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(inputPuzzle.state[i][j]==0){
+    for(int i = 0; i < puzzleSize; ++i) {   // puzzle column
+        for(int j = 0; j < puzzleSize; ++j) {   // puzzle row
+            if(inputPuzzle.state[i][j]==0) {    // if the location of the 0 is found, store it
                 ilocation = i;
                 jlocation = j;
             }
         }
     }
-    if(jlocation==2){
+    if(jlocation==2) {  // if 0 is in the rightmost column, shift right is impossible
         return false;
     }
     return true;
@@ -152,13 +151,15 @@ node Problem::shiftLeft(node puzzleInput) {
     int jlocation = 0;
 
     for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(puzzleInput.state[i][j]==0){
+        for(int j = 0; j < puzzleSize; ++j) {
+            if(puzzleInput.state[i][j]==0){ // store the location of the 0
                 ilocation = i;
                 jlocation = j;
             }
         }
     }
+    
+    // shift the position of the 0 to the left by switching it with its left neighbor
     int holder = puzzleInput.state[ilocation][jlocation-1];
     puzzleInput.state[ilocation][jlocation-1] = 0;
     puzzleInput.state[ilocation][jlocation] = holder;
@@ -171,13 +172,15 @@ node Problem::shiftRight(node puzzleInput){
     int jlocation = 0;
 
     for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(puzzleInput.state[i][j]==0){
+        for(int j = 0; j < puzzleSize; ++j) {
+            if(puzzleInput.state[i][j]==0) {    // store the location of the 0
                 ilocation = i;
                 jlocation = j;
             }
         }
     }
+    
+    // shift the position of the 0 to the right by switching it with its right neighbor 
     int holder = puzzleInput.state[ilocation][jlocation+1];
     puzzleInput.state[ilocation][jlocation+1] = 0;
     puzzleInput.state[ilocation][jlocation] = holder;
@@ -190,13 +193,15 @@ node Problem::shiftUp(node puzzleInput){
     int jlocation = 0;
 
     for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(puzzleInput.state[i][j]==0){
+        for(int j = 0; j < puzzleSize; ++j) {
+            if(puzzleInput.state[i][j]==0) {    // store the location of the 0
                 ilocation = i;
                 jlocation = j;
             }
         }
     }
+
+    // shift the position of the 0 upwards by switching it with its upstairs neighbor
     int holder = puzzleInput.state[ilocation-1][jlocation];
     puzzleInput.state[ilocation-1][jlocation] = 0;
     puzzleInput.state[ilocation][jlocation] = holder;
@@ -209,13 +214,15 @@ node Problem::shiftDown(node puzzleInput){
     int jlocation = 0;
 
     for(int i = 0; i < puzzleSize; ++i) {
-        for(int j = 0; j < puzzleSize; ++j){
-            if(puzzleInput.state[i][j]==0){
+        for(int j = 0; j < puzzleSize; ++j) {
+            if(puzzleInput.state[i][j]==0) {    // store the location of the 0
                 ilocation = i;
                 jlocation = j;
             }
         }
     }
+
+    // // shift the position of the 0 downwards by switching it with its downstairs neighbor
     int holder = puzzleInput.state[ilocation+1][jlocation];
     puzzleInput.state[ilocation+1][jlocation] = 0;
     puzzleInput.state[ilocation][jlocation] = holder;
@@ -233,7 +240,7 @@ int Problem::MisplacedTileSearch(node inputPuzzle) {
     int heuCount = 0;
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
-            if(inputPuzzle.state[i][j] != goalS[i][j]) {
+            if(inputPuzzle.state[i][j] != goalS[i][j]) {    // increase heuristic count if the number doesn't match the one in the goal
                 heuCount++;
             }
         }
@@ -272,7 +279,7 @@ double Problem::EuclideanDistanceSearch(node puzzleInput){
                         }
                     }
                 }
-                heuristicCost += sqrt(pow(i-igoallocation, 2) + pow(j-igoallocation, 2));
+                heuristicCost += sqrt(pow(i-igoallocation, 2) + pow(j-igoallocation, 2));   // distance formula
             }
         }
     }
