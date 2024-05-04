@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stack>
+
 #include "headers/node.hpp"
 #include "headers/problem.hpp"
 using namespace std;
@@ -7,7 +9,7 @@ int main() {
 
   int userChoice = 0;
 
-  cout << "Welcome to [TEAM NAME] 8-Puzzle Solver!" << endl << endl;
+  cout << "Welcome to our 8-Puzzle Solver!" << endl << endl;
 
   Problem problem;
 
@@ -50,22 +52,95 @@ int main() {
 
     if (userChoice == 1) {
       node solved = problem.uniformCostSearch(1);
+      
+      bool notsolved = true;
+
+      for(int i = 0; i < problem.getPuzzleSize(); i++){ // check each state to see if change was made
+        for(int j = 0; j < problem.getPuzzleSize(); j++){
+          if(solved.state[i][j] != problem.puzzle.state[i][j]){ 
+            notsolved = false; // if there was that means its solved
+          }
+        }
+      }
+      if(notsolved) { // if notsolved is still true that means it wasnt solved
+        break;
+      }
+
+      stack<node> path;
+      path.push(solved);
+
+      while(solved.p){
+        path.push(*(solved.p));
+        solved = *(solved.p);
+      }
+      while(!path.empty()){
+        problem.printState(path.top());
+        cout << endl;
+        path.pop();
+      }
       break;
     }
 
     else if (userChoice == 2) {
-      // call misplaced tile heuristic
-      // int misplaced = problem.MisplacedTileSearch(problem.puzzle);
-      // cout << misplaced << endl;
       node solved = problem.uniformCostSearch(2);
+
+      bool notsolved = true;
+
+      for(int i = 0; i < problem.getPuzzleSize(); i++){
+        for(int j = 0; j < problem.getPuzzleSize(); j++){
+          if(solved.state[i][j] != problem.puzzle.state[i][j]){
+            notsolved = false;
+          }
+        }
+      }
+      if(notsolved) {
+        break;
+      }
+
+      stack<node> path;
+      path.push(solved);
+
+      while(solved.p){
+        path.push(*(solved.p));
+        solved = *(solved.p);
+      }
+      while(!path.empty()){
+        problem.printState(path.top());
+        cout << endl;
+        path.pop();
+      }
       break;
     }
 
     else if (userChoice == 3) {
-      // for testing
-      // double hOfn = problem.EuclideanDistanceSearch(problem.puzzle);
-      // cout << "hOfn: " << hOfn << endl;
       node solved = problem.uniformCostSearch(3);
+
+      bool notsolved = true;
+
+      for(int i = 0; i < problem.getPuzzleSize(); i++){ 
+        for(int j = 0; j < problem.getPuzzleSize(); j++){
+          if(solved.state[i][j] != problem.puzzle.state[i][j]){
+            notsolved = false; 
+          }
+        }
+      }
+      if(notsolved) { 
+        break;
+      }
+
+      stack<node> path;
+      path.push(solved);
+
+      while(solved.p){
+        path.push(*(solved.p));
+        solved = *(solved.p);
+      }
+      while(!path.empty()){
+        problem.printState(path.top());
+        cout << endl;
+        path.pop();
+      }
+      
       break;
     }
   

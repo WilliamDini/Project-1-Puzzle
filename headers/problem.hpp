@@ -12,10 +12,10 @@ class Problem {
         node puzzle;
         Problem();
         void userProblem();
-        // int getPuzzleSize(); // dont need this for now
-        void printStartState(); // for testing purposes
+        int getPuzzleSize();
+        void printStartState();
+        void printState(node puzzleInput);
 
-        //void printGoalState();   // for testing purposes
         node uniformCostSearch(int whichHeuristic);
         vector<node> expand(const node& puzzleInput);
 

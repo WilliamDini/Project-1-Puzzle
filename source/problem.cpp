@@ -32,7 +32,11 @@ void Problem::userProblem() {    // "constructor" based on user input
     }
 }
 
-void Problem::printStartState() { // for testing purposes
+int Problem::getPuzzleSize() {
+    return puzzleSize;
+}
+
+void Problem::printStartState() {
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
             cout << puzzle.state[i][j] << " ";
@@ -41,6 +45,14 @@ void Problem::printStartState() { // for testing purposes
     }
 }
 
+void Problem::printState(node puzzleInput){
+    for(int i = 0; i < puzzleSize; ++i) {
+        for(int j = 0; j < puzzleSize; ++j) {
+            cout << puzzleInput.state[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 
 bool Problem::GoalStateTest(node puzzleInput) {
     int counter = 1;
@@ -225,7 +237,6 @@ node Problem::uniformCostSearch(int whichHeuristic){
         pqueue.pop();
 
         if(GoalStateTest(top)){
-            cout << "solved" << endl;
             return top;
         }
 
@@ -300,7 +311,7 @@ node Problem::uniformCostSearch(int whichHeuristic){
             pqueue.push(new_node);
         }
     }
-    cout << "couldnt be solved" << endl;
+    cout << "Couldn't be Solved" << endl;
     return puzzle;
 }
 
