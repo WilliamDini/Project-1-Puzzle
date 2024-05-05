@@ -11,7 +11,7 @@
 Problem::Problem() {    // default constructor
     // start state
     int counter = 0;
-    int tiles[9] = {1,2,3,4,8,0,7,6,5}; // to be populated in the dynamic vector
+    int tiles[9] = {1,0,3,4,2,6,7,5,8}; // to be populated in the dynamic vector
     for(int i = 0; i < puzzleSize; ++i) {   // puzzle column
         for(int j = 0; j < puzzleSize; ++j) {   // puzzle row
             puzzle.state[i][j] = tiles[counter];    // build the start state puzzle, one integer at a time
@@ -23,8 +23,8 @@ Problem::Problem() {    // default constructor
 void Problem::userProblem() {    // "constructor" based on user input
     int userInput = 0;
     
-    for (int i = 0; i < 3; ++i) {   // puzzle column
-        for(int j = 0; j < 3; ++j) {    // puzzle row
+    for (int i = 0; i < puzzleSize; ++i) {   // puzzle column
+        for(int j = 0; j < puzzleSize; ++j) {    // puzzle row
             cin >> userInput;
             puzzle.state[i][j] = userInput; // change the start state puzzle according to user input
         }
@@ -112,7 +112,7 @@ bool Problem::canShiftDown(node inputPuzzle) {
             }
         }
     }
-    if(ilocation==2) {  // if 0 is in the bottom row, shift down is impossible
+    if(ilocation == puzzleSize-1) {  // if 0 is in the bottom row, shift down is impossible
         return false;
     }
     return true;
@@ -148,7 +148,7 @@ bool Problem::canShiftRight(node inputPuzzle) {
             }
         }
     }
-    if(jlocation==2) {  // if 0 is in the rightmost column, shift right is impossible
+    if(jlocation == puzzleSize-1) {  // if 0 is in the rightmost column, shift right is impossible
         return false;
     }
     return true;
@@ -244,6 +244,8 @@ int Problem::MisplacedTileSearch(node inputPuzzle) {
     }
 
     int goalS[3][3] = {{1,2,3}, {4,5,6}, {7,8,0}};
+    // int goalS[4][4] = {{1,2,3,4}, {5,6,7,8}, {9,10,11,0}};
+    // int goalS[5][5] = {{1,2,3,4,5}, {6,7,8,9,10}, {11,12,13,14,0}};
 
     int heuCount = 0;
     for(int i = 0; i < puzzleSize; ++i) {
@@ -263,6 +265,8 @@ double Problem::EuclideanDistanceSearch(node puzzleInput){
     }
 
     int goalState[3][3] = {{1,2,3}, {4,5,6}, {7,8,0}};
+    // int goalS[4][4] = {{1,2,3,4}, {5,6,7,8}, {9,10,11,0}};
+    // int goalS[5][5] = {{1,2,3,4,5}, {6,7,8,9,10}, {11,12,13,14,0}};
 
     double heuristicCost = 0;
 
