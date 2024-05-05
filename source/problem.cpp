@@ -248,7 +248,7 @@ int Problem::MisplacedTileSearch(node inputPuzzle) {
     int heuCount = 0;
     for(int i = 0; i < puzzleSize; ++i) {
         for(int j = 0; j < puzzleSize; ++j) {
-            if(inputPuzzle.state[i][j] != goalS[i][j]) {    // increase heuristic count if the number doesn't match the one in the goal
+            if(inputPuzzle.state[i][j] != goalS[i][j] && inputPuzzle.state[i][j] != 0) { // increase heuristic count if the number doesn't match the one in the goal
                 heuCount++;
             }
         }
