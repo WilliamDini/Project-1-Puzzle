@@ -8,6 +8,7 @@ using namespace std;
 int main() {
 
   int userChoice = 0;
+  int depth = 0;
 
   cout << "Welcome to our 8-Puzzle Solver!" << endl << endl;
 
@@ -52,6 +53,7 @@ int main() {
 
     if (userChoice == 1) {
       node solved = problem.uniformCostSearch(1);
+      depth = solved.cost;
 
       bool notsolved = true;
 
@@ -83,6 +85,7 @@ int main() {
 
     else if (userChoice == 2) {
       node solved = problem.uniformCostSearch(2);
+      depth = solved.cost;
 
       bool notsolved = true;
 
@@ -114,7 +117,7 @@ int main() {
 
     else if (userChoice == 3) {
       node solved = problem.uniformCostSearch(3);
-      int depth = solved.cost;
+      depth = solved.cost;
 
       bool notsolved = true;
 
@@ -141,19 +144,18 @@ int main() {
         cout << endl;
         path.pop();
       }
-
-      cout << depth << endl;
-      cout << problem.getMaxExpanded() << endl;
-      cout << problem.getMaxInQueue() << endl;
       
       break;
     }
-  
+    
     cin.clear();
     cin.ignore(80, '\n');
     cout << endl;
   }
 
+  cout << "The search algorithm expanded a total of " << problem.getMaxExpanded() << " nodes." << endl;
+  cout << "The maximum number of nodes in the queue was " << problem.getMaxInQueue() << "." << endl;
+  cout << "The depth of the goal node was " << depth << "." << endl;
   
   return 0;
 }

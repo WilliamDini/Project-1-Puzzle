@@ -6,9 +6,6 @@
 
 #include "../headers/problem.hpp"
 
-// used sources
-// https://www.geeksforgeeks.org/unordered-set-of-vectors-in-c-with-examples/
-
 // initialize puzzle —
 
 Problem::Problem() {    // default constructor
