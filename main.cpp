@@ -52,7 +52,7 @@ int main() {
 
     if (userChoice == 1) {
       node solved = problem.uniformCostSearch(1);
-      
+
       bool notsolved = true;
 
       for(int i = 0; i < problem.getPuzzleSize(); i++){ // check each state to see if change was made
@@ -114,6 +114,7 @@ int main() {
 
     else if (userChoice == 3) {
       node solved = problem.uniformCostSearch(3);
+      int depth = solved.cost;
 
       bool notsolved = true;
 
@@ -140,6 +141,10 @@ int main() {
         cout << endl;
         path.pop();
       }
+
+      cout << depth << endl;
+      cout << problem.getMaxExpanded() << endl;
+      cout << problem.getMaxInQueue() << endl;
       
       break;
     }

@@ -6,6 +6,9 @@
 
 #include "../headers/problem.hpp"
 
+// used sources
+// https://www.geeksforgeeks.org/unordered-set-of-vectors-in-c-with-examples/
+
 // initialize puzzle —
 
 Problem::Problem() {    // default constructor
@@ -72,6 +75,14 @@ bool Problem::GoalStateTest(node puzzleInput) {
     }
     
     return true;
+}
+
+int Problem::getMaxExpanded(){
+    return numExpanded;
+}
+
+int Problem::getMaxInQueue(){
+    return maxInQueue;
 }
 
 bool Problem::canShiftUp(node inputPuzzle) {
@@ -222,7 +233,7 @@ node Problem::shiftDown(node puzzleInput){
         }
     }
 
-    // // shift the position of the 0 downwards by switching it with its downstairs neighbor
+    // shift the position of the 0 downwards by switching it with its downstairs neighbor
     int holder = puzzleInput.state[ilocation+1][jlocation];
     puzzleInput.state[ilocation+1][jlocation] = 0;
     puzzleInput.state[ilocation][jlocation] = holder;
@@ -330,12 +341,17 @@ node Problem::uniformCostSearch(int whichHeuristic){
     pqueue.push(puzzle);
 
     while(!pqueue.empty()){
+        if(pqueue.size() > maxInQueue){
+            maxInQueue = pqueue.size();
+        }
+
         node top = pqueue.top();
         pqueue.pop();
 
         if(GoalStateTest(top)){
             return top;
         }
+        numExpanded++;
 
         // add the state into a vector so that we can put it into the hashmap and check if it was visited
         checkIfVisited.clear();

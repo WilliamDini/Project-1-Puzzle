@@ -7,6 +7,8 @@ using namespace std;
 class Problem {
     protected:
         int puzzleSize = 3;
+        int maxInQueue = 0;
+        int numExpanded = 0;
 
     public:
         node puzzle;
@@ -15,12 +17,13 @@ class Problem {
         int getPuzzleSize();
         void printStartState();
         void printState(node puzzleInput);
+        int getMaxInQueue();
+        int getMaxExpanded();
 
         node uniformCostSearch(int whichHeuristic);
-
         int MisplacedTileSearch(node inputPuzzle);
-
         double EuclideanDistanceSearch(node inputPuzzle);
+
         bool GoalStateTest(node puzzleInput);
   
         bool canShiftUp(node inputPuzzle);
