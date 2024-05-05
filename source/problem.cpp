@@ -348,7 +348,6 @@ node Problem::uniformCostSearch(int whichHeuristic){
         if(GoalStateTest(top)){
             return top;
         }
-        numExpanded++;
 
         // add the state into a vector so that we can put it into the hashmap and check if it was visited
         checkIfVisited.clear();
@@ -364,6 +363,7 @@ node Problem::uniformCostSearch(int whichHeuristic){
 
         // if it wasnt visited then add to hashmap
         hash.insert(checkIfVisited);
+        numExpanded++;
         
         if(canShiftUp(top)){ // check if you can shift up
             node new_node; // if you can then make a new node
