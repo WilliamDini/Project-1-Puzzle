@@ -6,7 +6,7 @@ using namespace std;
 
 class Problem {
     protected:
-        int puzzleSize = 3;
+        int puzzleSize = 3; // change if you want different puzzle
         int maxInQueue = 0;
         int numExpanded = 0;
 

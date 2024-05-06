@@ -63,7 +63,7 @@ bool Problem::GoalStateTest(node puzzleInput) {
                 continue;
             }
             else{
-                if(counter == 9 && puzzleInput.state[i][j]==0) { // checking if the ninth number is a 0
+                if(counter == 9 && puzzleInput.state[i][j]==0) { // checking if the ninth number is a 0 // change if you want another puzzle
                     continue;
                 }
                 return false;
@@ -244,8 +244,8 @@ int Problem::MisplacedTileSearch(node inputPuzzle) {
     }
 
     int goalS[3][3] = {{1,2,3}, {4,5,6}, {7,8,0}};
-    // int goalS[4][4] = {{1,2,3,4}, {5,6,7,8}, {9,10,11,0}};
-    // int goalS[5][5] = {{1,2,3,4,5}, {6,7,8,9,10}, {11,12,13,14,0}};
+    // int goalS[4][4] = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,0}};
+    // int goalS[5][5] = {{1,2,3,4,5}, {6,7,8,9,10}, {11,12,13,14,15}, {16,17,18,19,20}, {21,22,23,24,0}};
 
     int heuCount = 0;
     for(int i = 0; i < puzzleSize; ++i) {
@@ -265,8 +265,8 @@ double Problem::EuclideanDistanceSearch(node puzzleInput){
     }
 
     int goalState[3][3] = {{1,2,3}, {4,5,6}, {7,8,0}};
-    // int goalS[4][4] = {{1,2,3,4}, {5,6,7,8}, {9,10,11,0}};
-    // int goalS[5][5] = {{1,2,3,4,5}, {6,7,8,9,10}, {11,12,13,14,0}};
+    // int goalState[4][4] = {{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,0}};
+    // int goalState[5][5] = {{1,2,3,4,5}, {6,7,8,9,10}, {11,12,13,14,15}, {16,17,18,19,20}, {21,22,23,24,0}};
 
     double heuristicCost = 0;
 
